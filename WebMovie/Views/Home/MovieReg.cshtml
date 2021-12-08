@@ -1,0 +1,29 @@
+﻿
+<h1>New Movie Set-Up</h1>
+
+<form action="Confirmation">
+
+    <p>Title:</p>
+    <input type="text" name="Title" maxlength="30" />
+
+    <p>Genre:</p>
+
+    <input type="radio" name="Genre" value="Action" id="a" required />
+    <label for="a">Action</label>
+
+    <input type="radio" name="Genre" value="Comedy" id="c" required />
+    <label for="c">Comedy</label>
+
+    <input type="radio" name="Genre" value="SciFi" id="s" required/>
+    <label for="s">SciFi</label>
+
+    <p>Years:</p>
+    <input type="number" name="Year" min="1880" max="2021"/>
+
+    <p>Runtime:</p>
+    <input type="number" name="Runtime" />
+    <br />
+    <br />
+    <input type="submit" />
+
+</form>
