@@ -44,9 +44,10 @@ namespace WebMovie.Controllers
             {
 
 
-                string sqlT = $"SELECT * FROM Movies WHERE (Title = {m.Title})";
-                string sqlG = $"SELECT * FROM Movies WHERE (Genre = {m.Genre})";
-                if (m.Title == null )
+                string sqlT = $"SELECT * FROM Movies where title = '{m.Title}'";
+                string sqlG = $"SELECT * FROM Movies where genre = '{m.Genre}'";
+
+                if (m.Title == null)
                 {
                     connect.Open();
                     connect.Execute(sqlG);
@@ -64,7 +65,7 @@ namespace WebMovie.Controllers
                 }
                 else
                 
-                    return RedirectToAction("Search","Home");
+                    return View();
                 
 
             }
