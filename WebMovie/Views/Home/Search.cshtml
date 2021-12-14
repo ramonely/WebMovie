@@ -3,26 +3,43 @@
 
 <p>Enter a Title or Genre to Search For A Movie: </p>
 
-<form action="SearchResult">
+<form name="myForm" action="SearchResult">
 
+    <p>ID :</p>
+    <input type="number" name="ID" />
 
     <p>Title:</p>
     <input type="text" name="Title" maxlength="30" />
 
     <p>Genre:</p>
 
-    <input type="radio" name="Genre" value="Action" id="a"  />
+    <input type="radio" name="Genre" value="Action" id="a" />
     <label for="a">Action</label>
 
-    <input type="radio" name="Genre" value="Comedy" id="c"  />
+    <input type="radio" name="Genre" value="Comedy" id="c" />
     <label for="c">Comedy</label>
 
-    <input type="radio" name="Genre" value="SciFi" id="s"  />
+    <input type="radio" name="Genre" value="SciFi" id="s" />
     <label for="s">SciFi</label>
 
     <br />
     <br />
 
-    <input type="submit" />
+    <input type="submit" onclick="validateAndSend()" />
 
 </form>
+
+<script>
+    function validateAndSend()
+    {
+        if (myForm.Title.value == '' && myForm.Genre.value == '' && myForm.ID.value == '')
+        {
+            alert('You have to enter at least one.');
+            return false;
+        }
+        else
+        {
+            myForm.submit();
+        }
+    }
+</script>

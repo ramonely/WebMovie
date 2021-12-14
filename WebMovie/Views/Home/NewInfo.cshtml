@@ -1,0 +1,34 @@
+﻿
+
+<h1>Edit A Movie</h1>
+
+
+<form action="Changing">
+
+    <p>ID (you can see the movie ID at the end of the url if you forgot):</p>
+    <input type="number" name="ID" />
+
+    <p>Title:</p>
+    <input type="text" name="Title" maxlength="30" />
+
+    <p>Genre:</p>
+
+    <input type="radio" name="Genre" value="Action" id="a" required />
+    <label for="a">Action</label>
+
+    <input type="radio" name="Genre" value="Comedy" id="c" required />
+    <label for="c">Comedy</label>
+
+    <input type="radio" name="Genre" value="SciFi" id="s" required />
+    <label for="s">SciFi</label>
+
+    <p>Years:</p>
+    <input type="number" name="Years" min="1880" max="2021" />
+
+    <p>Runtime:</p>
+    <input type="number" name="Runtime" />
+    <br />
+    <br />
+    <input type="submit" />
+
+</form>

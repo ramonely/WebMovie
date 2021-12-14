@@ -14,12 +14,53 @@ namespace WebMovie.Controllers
 {
     public class HomeController : Controller
     {
+        public IActionResult Edit()
+        {
+
+            using (var connect = new MySqlConnection(Private.connection))
+            {
+
+                string sql = $"SELECT * FROM Movies";
+              
+                    connect.Open();
+                    connect.Execute(sql);
+                    List<Movie> allMovies = connect.Query<Movie>(sql).ToList();
+                    connect.Close();
+                    return View(allMovies);
+  
+
+            }
+        }
+        public IActionResult Delete(Movie m)
+        {
+
+            using (var connect = new MySqlConnection(Private.connection))
+            {
+
+                string sql = $"delete FROM Movies where id='{m.ID}'";
+
+                connect.Open();
+                connect.Execute(sql);
+                connect.Close();
+                return RedirectToAction("Edit","Home");
+
+
+            }
+        }
+
 
 
         public IActionResult Index()
         {
 
                 return View();
+
+        }
+        public IActionResult NewInfo()
+        {
+
+            return View();
+
 
         }
 
@@ -43,11 +84,12 @@ namespace WebMovie.Controllers
             using (var connect = new MySqlConnection(Private.connection))
             {
 
-
+                string sqlI = $"SELECT * FROM Movies where id = '{m.ID}'";
                 string sqlT = $"SELECT * FROM Movies where title = '{m.Title}'";
                 string sqlG = $"SELECT * FROM Movies where genre = '{m.Genre}'";
+                string sqlA = $"SELECT * FROM Movies where genre = '{m.Genre}' and title = '{m.Title}'";
 
-                if (m.Title == null)
+                if (m.Title == null && m.Genre != null)
                 {
                     connect.Open();
                     connect.Execute(sqlG);
@@ -55,7 +97,7 @@ namespace WebMovie.Controllers
                     connect.Close();
                     return View(allMoviesG);
                 }
-                else if (m.Genre == null)
+                else if (m.Genre == null && m.Title != null)
                 {
                     connect.Open();
                     connect.Execute(sqlT);
@@ -63,9 +105,26 @@ namespace WebMovie.Controllers
                     connect.Close();
                     return View(allMoviesT);
                 }
+
+                else if (m.Genre != null && m.Title != null)
+                {
+                    connect.Open();
+                    connect.Execute(sqlA);
+                    List<Movie> allMoviesT = connect.Query<Movie>(sqlA).ToList();
+                    connect.Close();
+                    return View(allMoviesT);
+                }
+                else if (m.Genre == null && m.Title == null)
+                {
+                    connect.Open();
+                    connect.Execute(sqlI);
+                    List<Movie> allMoviesI = connect.Query<Movie>(sqlI).ToList();
+                    connect.Close();
+                    return View(allMoviesI);
+                }
                 else
-                
-                    return View();
+
+                    return RedirectToAction("Search");
                 
 
             }
@@ -78,14 +137,27 @@ namespace WebMovie.Controllers
             using (var connect = new MySqlConnection(Private.connection))
             {
 
-
-                string sql = $"insert into movies values(0,@Title,@Genre,@Years,@Runtime)";
+                string sql = $"insert into movies values(0,'{m.Title}', '{m.Genre}','{m.Years}','{m.Runtime}')";
                 connect.Open();
-                connect.Execute(sql, new {Title = m.Title,Genre = m.Genre, Years = m.Years, Runtime = m.Runtime });
+                connect.Execute(sql);
                 string allM = "select * from movies";
                 List<Movie> allMovies = connect.Query<Movie>(allM).ToList();
                 connect.Close();
                 return View(allMovies);
+
+            }
+        }
+        public IActionResult Changing(Movie m)
+
+        {
+            using (var connect = new MySqlConnection(Private.connection))
+            {
+
+                string sql = $"update movies set title='{m.Title}', genre='{m.Genre}', years={m.Years}, runtime={m.Runtime} where id={m.ID};"; 
+                connect.Open();
+                connect.Execute(sql);
+                connect.Close();
+                return RedirectToAction("Edit");
 
             }
         }

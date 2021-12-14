@@ -1,0 +1,18 @@
+﻿@model List<Movie>
+
+<h1>Edit A Movie</h1>
+
+@foreach (Movie m in Model)
+{
+<div style="border: 2px solid black">
+    <p>ID: @m.ID</p>
+    <p>Title: @m.Title</p>
+    <p>Genre: @m.Genre</p>
+    <p>Release Year: @m.Years</p>
+    <p>Runtime: @m.Runtime</p>
+
+        <a asp-action="Delete" asp-controller="Home" asp-route-id="@m.ID"><p>Delete this movie</p></a>
+        <a asp-action="NewInfo" asp-controller="Home" asp-route-id="@m.ID"><p>Edit this movie</p></a>
+
+</div>
+}
